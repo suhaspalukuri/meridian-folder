@@ -21,8 +21,8 @@ const cols = [
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-cream/40 border-t-2 border-cream/10">
-      <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-14">
+    <footer className="bg-ink text-cream/40">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-12 pt-14 pb-28">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
 
           {/* Brand */}

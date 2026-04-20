@@ -19,41 +19,25 @@ export default async function HomePage() {
   const secondary = latest.slice(1, 3)
   const grid = latest.slice(3)
 
-  const today = new Date().toLocaleDateString('en-US', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-  })
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'The Meridian Folder', url: process.env.NEXT_PUBLIC_SITE_URL || 'https://meridianfolder.com' }) }} />
 
       {/* ── MASTHEAD ── */}
-      <header className="border-b-2 border-ink pt-10 pb-4 px-6 md:px-12">
+      <header className="pt-12 pb-6 px-6 md:px-12">
         <div className="max-w-screen-xl mx-auto">
-          {/* Top rule row */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex gap-6">
-              {categories.map(c => (
-                <Link key={c._id} href={`/blog/${c.slug.current}`} className="text-2xs uppercase text-ink/50 hover:text-ink transition-colors">
-                  {c.title}
-                </Link>
-              ))}
-            </div>
-            <span className="text-2xs text-ink/30 hidden md:block">{today}</span>
-          </div>
-
           {/* Wordmark */}
-          <div className="text-center border-y border-ink/10 py-5 my-2">
+          <div className="text-center py-6">
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight text-ink leading-none">
               The Meridian Folder
             </h1>
-            <p className="text-2xs uppercase text-ink/40 mt-3 tracking-[0.3em]">
+            <p className="text-2xs uppercase text-ink/40 mt-4 tracking-[0.3em]">
               Stories of founders · creators · everyday achievers
             </p>
           </div>
 
           {/* Issue line */}
-          <div className="flex items-center justify-between mt-3">
+          <div className="flex items-center justify-between mt-4 pt-4 border-t border-ink/10">
             <span className="text-2xs text-ink/30">Vol. I</span>
             <Link href="/blog" className="text-2xs uppercase text-accent hover:underline tracking-widest">
               All Stories →
@@ -64,11 +48,14 @@ export default async function HomePage() {
 
       {/* ── FEATURED HERO ── */}
       {featured && (
-        <section className="border-b border-ink/10">
+        <section className="border-y border-ink/10">
           <div className="max-w-screen-xl mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
-              {/* Image — takes 3 cols */}
-              <Link href={`/blog/${featured.category.slug.current}/${featured.slug.current}`} className="lg:col-span-3 block relative aspect-[4/3] lg:aspect-auto overflow-hidden bg-ink/5 border-r border-ink/10">
+              {/* Image */}
+              <Link
+                href={`/blog/${featured.category.slug.current}/${featured.slug.current}`}
+                className="lg:col-span-3 block relative aspect-[4/3] lg:aspect-auto overflow-hidden bg-ink/5 border-r border-ink/10"
+              >
                 {featured.coverImage ? (
                   <Image
                     src={urlFor(featured.coverImage).width(1100).height(800).url()}
@@ -82,13 +69,16 @@ export default async function HomePage() {
                 )}
               </Link>
 
-              {/* Text — takes 2 cols */}
-              <div className="lg:col-span-2 flex flex-col justify-between p-8 lg:p-12 border-b lg:border-b-0 border-ink/10">
+              {/* Text */}
+              <div className="lg:col-span-2 flex flex-col justify-between p-8 lg:p-12">
                 <div>
                   <div className="flex items-center gap-3 mb-6">
                     <span className="text-2xs uppercase text-accent tracking-widest">Featured</span>
                     <span className="text-ink/20">·</span>
-                    <Link href={`/blog/${featured.category.slug.current}`} className="text-2xs uppercase text-ink/40 tracking-widest hover:text-ink transition-colors">
+                    <Link
+                      href={`/blog/${featured.category.slug.current}`}
+                      className="text-2xs uppercase text-ink/40 tracking-widest hover:text-ink transition-colors"
+                    >
                       {featured.category.title}
                     </Link>
                   </div>
@@ -97,7 +87,7 @@ export default async function HomePage() {
                       {featured.title}
                     </h2>
                   </Link>
-                  <p className="text-ink/60 text-sm leading-relaxed border-l-2 border-ink/10 pl-4">
+                  <p className="text-ink/60 text-sm leading-relaxed">
                     {featured.excerpt}
                   </p>
                 </div>
@@ -123,27 +113,17 @@ export default async function HomePage() {
       {(lead || secondary.length > 0) && (
         <section className="border-b border-ink/10">
           <div className="max-w-screen-xl mx-auto px-6 md:px-12">
-
-            {/* Section label */}
             <div className="flex items-center gap-4 py-4 border-b border-ink/10">
               <span className="text-2xs uppercase tracking-widest text-ink font-medium">Latest</span>
               <div className="flex-1 h-px bg-ink/10" />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-ink/10">
-
-              {/* Lead story — 5 cols */}
               {lead && (
                 <article className="lg:col-span-5 py-8 pr-0 lg:pr-10 group">
                   <Link href={`/blog/${lead.category.slug.current}/${lead.slug.current}`} className="block aspect-[16/10] overflow-hidden bg-ink/5 mb-6">
                     {lead.coverImage ? (
-                      <Image
-                        src={urlFor(lead.coverImage).width(800).height(500).url()}
-                        alt={lead.title}
-                        width={800}
-                        height={500}
-                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                      />
+                      <Image src={urlFor(lead.coverImage).width(800).height(500).url()} alt={lead.title} width={800} height={500} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" />
                     ) : <div className="w-full h-full bg-ink/10" />}
                   </Link>
                   <CategoryLabel category={lead.category.title} slug={lead.category.slug.current} />
@@ -155,20 +135,13 @@ export default async function HomePage() {
                 </article>
               )}
 
-              {/* Secondary — 4 cols, stacked */}
               {secondary.length > 0 && (
                 <div className="lg:col-span-4 flex flex-col divide-y divide-ink/10">
                   {secondary.map(post => (
                     <article key={post._id} className="py-8 px-0 lg:px-8 group flex gap-5">
                       <Link href={`/blog/${post.category.slug.current}/${post.slug.current}`} className="flex-shrink-0 w-28 h-20 overflow-hidden bg-ink/5">
                         {post.coverImage ? (
-                          <Image
-                            src={urlFor(post.coverImage).width(280).height(200).url()}
-                            alt={post.title}
-                            width={280}
-                            height={200}
-                            className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
-                          />
+                          <Image src={urlFor(post.coverImage).width(280).height(200).url()} alt={post.title} width={280} height={200} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
                         ) : <div className="w-full h-full bg-ink/10" />}
                       </Link>
                       <div className="flex flex-col justify-between min-w-0">
@@ -185,10 +158,9 @@ export default async function HomePage() {
                 </div>
               )}
 
-              {/* Divider col — 3 cols, categories */}
               <aside className="lg:col-span-3 py-8 pl-0 lg:pl-8">
                 <p className="text-2xs uppercase tracking-widest text-ink/40 mb-5">Browse</p>
-                <div className="space-y-0 divide-y divide-ink/10">
+                <div className="divide-y divide-ink/10">
                   {categories.map((cat, i) => (
                     <Link key={cat._id} href={`/blog/${cat.slug.current}`} className="flex items-start gap-3 py-4 group">
                       <span className="text-2xs text-ink/25 mt-0.5 w-4 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
@@ -201,7 +173,6 @@ export default async function HomePage() {
                   ))}
                 </div>
               </aside>
-
             </div>
           </div>
         </section>
@@ -216,13 +187,7 @@ export default async function HomePage() {
                 <article key={post._id} className="group px-0 sm:px-6 first:pl-0 last:pr-0 py-6 sm:py-0">
                   <Link href={`/blog/${post.category.slug.current}/${post.slug.current}`} className="block aspect-[4/3] overflow-hidden bg-ink/5 mb-4">
                     {post.coverImage ? (
-                      <Image
-                        src={urlFor(post.coverImage).width(500).height(375).url()}
-                        alt={post.title}
-                        width={500}
-                        height={375}
-                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                      />
+                      <Image src={urlFor(post.coverImage).width(500).height(375).url()} alt={post.title} width={500} height={375} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                     ) : <div className="w-full h-full bg-ink/10" />}
                   </Link>
                   <CategoryLabel category={post.category.title} slug={post.category.slug.current} />
@@ -237,16 +202,23 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── NEWSLETTER ── */}
-      <section className="bg-ink py-16 px-6 md:px-12">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div>
-            <p className="text-2xs uppercase text-accent tracking-widest mb-3">Dispatch</p>
-            <h2 className="font-serif text-4xl text-cream leading-tight">Stories worth reading,<br />straight to your inbox.</h2>
-          </div>
-          <div>
-            <NewsletterSignup dark />
-            <p className="text-2xs text-ink/40 mt-3">No noise. No spam. Unsubscribe anytime.</p>
+      {/* ── DISPATCH / NEWSLETTER ── */}
+      <section className="bg-ink">
+        <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-2xs uppercase tracking-[0.25em] text-accent mb-5">Dispatch</p>
+              <h2 className="font-serif text-5xl md:text-6xl text-cream leading-[1.05] mb-4">
+                Stories worth<br />reading.
+              </h2>
+              <p className="text-cream/35 text-sm leading-relaxed max-w-xs">
+                One email when something worth reading is published. No noise, no schedule, no spam.
+              </p>
+            </div>
+            <div className="border-l border-cream/10 pl-16">
+              <NewsletterSignup dark />
+              <p className="text-2xs text-cream/20 mt-5 uppercase tracking-widest">Unsubscribe anytime.</p>
+            </div>
           </div>
         </div>
       </section>
