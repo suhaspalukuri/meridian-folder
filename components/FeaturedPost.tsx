@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '@/lib/queries'
-import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 
 interface Props {
@@ -16,7 +15,7 @@ export default function FeaturedPost({ post }: Props) {
       <Link href={href} className="block overflow-hidden aspect-[4/3] lg:aspect-auto bg-stone-100">
         {post.coverImage ? (
           <Image
-            src={urlFor(post.coverImage).width(900).height(700).url()}
+            src={post.coverImage}
             alt={post.title}
             width={900}
             height={700}

@@ -4,7 +4,6 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { getPostBySlug, getRelatedPosts, getAllPostSlugs } from '@/lib/queries'
-import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 import AuthorBlock from '@/components/AuthorBlock'
 import PostCard from '@/components/PostCard'
@@ -24,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt,
     openGraph: {
       title: post.title, description: post.excerpt, type: 'article', publishedTime: post.publishedAt,
-      images: post.coverImage ? [{ url: urlFor(post.coverImage).width(1200).height(630).url() }] : [],
+      images: post.coverImage ? [{ url: post.coverImage }] : [],
     },
     twitter: { card: 'summary_large_image' },
   }
@@ -48,7 +47,7 @@ const ptComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => (
       <figure className="my-12 -mx-6 md:-mx-16">
-        <Image src={urlFor(value).width(1100).url()} alt={value.alt || ''} width={1100} height={733} className="w-full object-cover" />
+        <Image src={value.url || value.asset?.url || ''} alt={value.alt || ''} width={1100} height={733} className="w-full object-cover" />
         {value.caption && <figcaption className="text-2xs text-ink/35 mt-3 text-center px-6">{value.caption}</figcaption>}
       </figure>
     ),
@@ -64,12 +63,12 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, author: { '@type': 'Person', name: post.author }, datePublished: post.publishedAt, url: `${siteUrl}/blog/${params.category}/${params.slug}`, ...(post.coverImage && { image: urlFor(post.coverImage).width(1200).height(630).url() }) }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, author: { '@type': 'Person', name: post.author }, datePublished: post.publishedAt, url: `${siteUrl}/blog/${params.category}/${params.slug}`, ...(post.coverImage && { image: post.coverImage }) }) }} />
 
       {/* Cover */}
       {post.coverImage && (
         <div className="w-full h-[55vh] md:h-[70vh] overflow-hidden relative bg-ink">
-          <Image src={urlFor(post.coverImage).width(1600).height(900).url()} alt={post.title} fill className="object-cover opacity-75" priority />
+          <Image src={post.coverImage} alt={post.title} fill className="object-cover opacity-75" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent" />
         </div>
       )}
