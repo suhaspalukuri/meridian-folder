@@ -67,71 +67,71 @@ export default async function PostPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, datePublished: post.publishedAt, url: `${siteUrl}/blog/${params.category}/${params.slug}`, ...(post.coverImage && { image: urlFor(post.coverImage).width(1200).height(630).url() }) }) }} />
 
-      {/* ── TWO-COLUMN LAYOUT ── */}
-      <div className="lg:flex lg:min-h-screen">
+      {/* ── TWO-COLUMN LAYOUT (desktop) ── */}
 
-        {/* LEFT — sticky cover image */}
-        {post.coverImage && (
-          <div className="lg:w-80 xl:w-96 lg:flex-shrink-0 lg:sticky lg:top-0 lg:h-screen lg:m-6 lg:rounded-sm overflow-hidden">
-            {/* Mobile: compact banner */}
-            <div className="block lg:hidden w-full h-56 relative bg-ink">
-              <Image
-                src={urlFor(post.coverImage).width(800).height(450).url()}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-            {/* Desktop: full-height sticky with margin */}
-            <div className="hidden lg:block w-full h-full relative bg-ink">
-              <Image
-                src={urlFor(post.coverImage).width(800).height(1200).url()}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
+      {/* Fixed image panel — desktop only */}
+      {post.coverImage && (
+        <div className="hidden lg:block fixed top-16 left-12 w-[38%] max-w-lg" style={{ zIndex: 10 }}>
+          <div className="relative w-full aspect-[4/3] overflow-hidden bg-ink/5">
+            <Image
+              src={urlFor(post.coverImage).width(900).height(675).url()}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
-        )}
-
-        {/* RIGHT — scrollable content */}
-        <div className="flex-1 min-w-0">
-          <article className="max-w-2xl px-6 md:px-10 pt-10 pb-20">
-
-            <div className="flex items-center gap-3 mb-6">
-              <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
-                {post.category.title}
-              </Link>
-              <span className="text-ink/20">·</span>
-              <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
-            </div>
-
-            <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">
-              {post.title}
-            </h1>
-
-            <p className="font-serif text-xl italic text-ink/50 leading-relaxed mb-10 pb-10 border-b border-ink/10">
-              {post.excerpt}
-            </p>
-
-            <div>
-              {post.body
-                ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />
-                : <p className="text-ink/30 italic">Story content coming soon.</p>
-              }
-            </div>
-
-            {post.tags && post.tags.length > 0 && (
-              <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
-                {post.tags.map(tag => (
-                  <span key={tag} className="text-xs border border-ink/15 px-3 py-1 text-ink/40 uppercase">{tag}</span>
-                ))}
-              </div>
-            )}
-          </article>
         </div>
+      )}
+
+      {/* Mobile banner */}
+      {post.coverImage && (
+        <div className="block lg:hidden w-full h-56 relative bg-ink overflow-hidden">
+          <Image
+            src={urlFor(post.coverImage).width(800).height(450).url()}
+            alt={post.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+      )}
+
+      {/* Content — offset right on desktop to clear the fixed image */}
+      <div className={post.coverImage ? 'lg:ml-[calc(38%+5rem)]' : ''}>
+        <article className="max-w-2xl px-6 md:px-10 pt-10 pb-24">
+
+          <div className="flex items-center gap-3 mb-6">
+            <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
+              {post.category.title}
+            </Link>
+            <span className="text-ink/20">·</span>
+            <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
+          </div>
+
+          <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">
+            {post.title}
+          </h1>
+
+          <p className="font-serif text-xl italic text-ink/50 leading-relaxed mb-10 pb-10 border-b border-ink/10">
+            {post.excerpt}
+          </p>
+
+          <div>
+            {post.body
+              ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />
+              : <p className="text-ink/30 italic">Story content coming soon.</p>
+            }
+          </div>
+
+          {post.tags && post.tags.length > 0 && (
+            <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
+              {post.tags.map(tag => (
+                <span key={tag} className="text-xs border border-ink/15 px-3 py-1 text-ink/40 uppercase">{tag}</span>
+              ))}
+            </div>
+          )}
+        </article>
       </div>
 
       {/* Related posts */}
