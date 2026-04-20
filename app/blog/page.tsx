@@ -2,6 +2,8 @@ import { getAllPosts, getAllCategories } from '@/lib/queries'
 import BlogClient from './BlogClient'
 import type { Metadata } from 'next'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'All Stories',
   description: 'Browse all stories from The Meridian Folder.',

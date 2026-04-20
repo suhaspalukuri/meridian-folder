@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import { getCategoryBySlug, getPostsByCategory, getAllCategorySlugs } from '@/lib/queries'
 import PostCard from '@/components/PostCard'
 
+export const revalidate = 60
+
 interface Props { params: { category: string } }
 
 export async function generateStaticParams() {

@@ -9,6 +9,8 @@ import { formatDate } from '@/lib/utils'
 import AuthorBlock from '@/components/AuthorBlock'
 import PostCard from '@/components/PostCard'
 
+export const revalidate = 60
+
 interface Props { params: { category: string; slug: string } }
 
 export async function generateStaticParams() {

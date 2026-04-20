@@ -6,6 +6,8 @@ import { formatDate } from '@/lib/utils'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import type { Metadata } from 'next'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'The Meridian Folder',
   description: 'In-depth stories of founders, creators, and everyday achievers from every corner of the globe.',
