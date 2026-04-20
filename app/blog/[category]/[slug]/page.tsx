@@ -76,18 +76,18 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
-      {/* Desktop: fixed image left, content scrolls right */}
+      {/* Desktop: fixed image left, content scrolls right — equal outer margins */}
       {post.coverImage && (
-        <div className="hidden lg:block fixed left-0 top-0 w-[48%] h-screen" style={{ zIndex: 10 }}>
-          <div className="w-full h-full relative">
-            <Image src={urlFor(post.coverImage).width(1200).height(1600).url()} alt={post.title} fill className="object-cover" priority />
+        <div className="hidden lg:block fixed left-0 top-0 pl-14 pt-10" style={{ zIndex: 10, width: '50%' }}>
+          <div className="relative w-full aspect-[4/3] overflow-hidden">
+            <Image src={urlFor(post.coverImage).width(900).height(675).url()} alt={post.title} fill className="object-cover" priority />
           </div>
         </div>
       )}
 
-      {/* Content — pushed right on desktop */}
-      <div className={post.coverImage ? 'lg:ml-[48%]' : ''}>
-        <article className="px-6 lg:px-14 pt-10 pb-24 max-w-2xl">
+      {/* Content — right half, matching right margin = image's left margin (pl-14) */}
+      <div className={post.coverImage ? 'lg:ml-[50%]' : ''}>
+        <article className="px-6 lg:pl-14 lg:pr-14 pt-10 pb-24 max-w-2xl">
 
           <div className="flex items-center gap-3 mb-6">
             <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
