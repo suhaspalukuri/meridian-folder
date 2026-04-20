@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: siteUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${siteUrl}/blog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${siteUrl}/about`, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${siteUrl}/submit`, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${siteUrl}/search`, changeFrequency: 'monthly', priority: 0.4 },
   ]
 
   const categoryPages: MetadataRoute.Sitemap = categorySlugs.map(slug => ({

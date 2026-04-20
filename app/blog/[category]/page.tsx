@@ -16,7 +16,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = await getCategoryBySlug(params.category)
   if (!cat) return {}
-  return { title: cat.title, description: cat.description }
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://meridianfolder.com'
+  const canonical = `${siteUrl}/blog/${params.category}`
+  return {
+    title: cat.title,
+    description: cat.description,
+    alternates: { canonical },
+    openGraph: { title: cat.title, description: cat.description, url: canonical, siteName: 'The Meridian Folder' },
+  }
 }
 
 export default async function CategoryPage({ params }: Props) {

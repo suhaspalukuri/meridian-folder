@@ -21,14 +21,30 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(params.slug)
   if (!post) return {}
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://meridianfolder.com'
+  const canonical = `${siteUrl}/blog/${params.category}/${params.slug}`
+  const ogImage = post.coverImage
+    ? urlFor(post.coverImage).width(1200).height(630).url()
+    : 'https://res.cloudinary.com/dhbtx0ajy/image/upload/v1776711825/frame-2_rx8t4z.avif'
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical },
     openGraph: {
-      title: post.title, description: post.excerpt, type: 'article', publishedTime: post.publishedAt,
-      images: post.coverImage ? [{ url: urlFor(post.coverImage).width(1200).height(630).url() }] : [],
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      url: canonical,
+      publishedTime: post.publishedAt,
+      siteName: 'The Meridian Folder',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
     },
-    twitter: { card: 'summary_large_image' },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImage],
+    },
   }
 }
 
