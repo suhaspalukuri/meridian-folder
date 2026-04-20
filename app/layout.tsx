@@ -53,8 +53,14 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: BASE },
   icons: {
-    icon: 'https://res.cloudinary.com/dhbtx0ajy/image/upload/v1776711825/instagram-post-4_ia1gdd.avif',
-    apple: 'https://res.cloudinary.com/dhbtx0ajy/image/upload/v1776711825/instagram-post-4_ia1gdd.avif',
+    icon: [
+      { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
+      { url: 'https://res.cloudinary.com/dhbtx0ajy/image/upload/w_512,h_512,c_fill,f_png/v1776711825/instagram-post-4_ia1gdd.avif', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [
+      { url: 'https://res.cloudinary.com/dhbtx0ajy/image/upload/w_180,h_180,c_fill,f_png/v1776711825/instagram-post-4_ia1gdd.avif', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/favicon.png',
   },
 }
 
