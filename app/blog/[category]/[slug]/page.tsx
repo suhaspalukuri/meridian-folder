@@ -68,68 +68,45 @@ export default async function PostPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, datePublished: post.publishedAt, url: `${siteUrl}/blog/${params.category}/${params.slug}`, ...(post.coverImage && { image: urlFor(post.coverImage).width(1200).height(630).url() }) }) }} />
 
       {/* ── TWO-COLUMN LAYOUT ── */}
-      <div className={post.coverImage ? 'lg:flex lg:min-h-screen' : ''}>
+      <div className="lg:flex lg:min-h-screen">
 
-        {/* LEFT — sticky cover image (desktop only) */}
+        {/* LEFT — sticky cover image */}
         {post.coverImage && (
-          <div className="lg:w-[45%] lg:flex-shrink-0 lg:sticky lg:top-0 lg:h-screen relative">
-            {/* Mobile: full-width banner */}
-            <div className="block lg:hidden w-full h-[50vw] min-h-[240px] relative bg-ink overflow-hidden">
+          <div className="lg:w-80 xl:w-96 lg:flex-shrink-0 lg:sticky lg:top-0 lg:h-screen lg:m-6 lg:rounded-sm overflow-hidden">
+            {/* Mobile: compact banner */}
+            <div className="block lg:hidden w-full h-56 relative bg-ink">
               <Image
-                src={urlFor(post.coverImage).width(900).height(600).url()}
+                src={urlFor(post.coverImage).width(800).height(450).url()}
                 alt={post.title}
                 fill
-                className="object-cover opacity-80"
+                className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
             </div>
-            {/* Desktop: full-height sticky */}
-            <div className="hidden lg:block w-full h-full relative bg-ink overflow-hidden">
+            {/* Desktop: full-height sticky with margin */}
+            <div className="hidden lg:block w-full h-full relative bg-ink">
               <Image
-                src={urlFor(post.coverImage).width(1200).height(1600).url()}
+                src={urlFor(post.coverImage).width(800).height(1200).url()}
                 alt={post.title}
                 fill
-                className="object-cover opacity-85"
+                className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink/20" />
-              {/* Category + date overlay */}
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="flex items-center gap-3 mb-3">
-                  <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase text-cream/70 hover:text-cream transition-colors">
-                    {post.category.title}
-                  </Link>
-                  <span className="text-cream/30">·</span>
-                  <span className="text-xs text-cream/50">{formatDate(post.publishedAt)}</span>
-                </div>
-              </div>
             </div>
           </div>
         )}
 
         {/* RIGHT — scrollable content */}
-        <div className={post.coverImage ? 'lg:flex-1 lg:overflow-y-auto' : 'w-full'}>
-          <article className="max-w-2xl mx-auto px-6 md:px-10 pt-10 pb-20">
+        <div className="flex-1 min-w-0">
+          <article className="max-w-2xl px-6 md:px-10 pt-10 pb-20">
 
-            {/* Category + date (mobile shows below image, desktop shows in overlay) */}
-            <div className={`flex items-center gap-3 mb-6 ${post.coverImage ? 'lg:hidden' : ''}`}>
+            <div className="flex items-center gap-3 mb-6">
               <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
                 {post.category.title}
               </Link>
               <span className="text-ink/20">·</span>
               <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
             </div>
-            {/* Desktop category row (since overlay is on image) */}
-            {post.coverImage && (
-              <div className="hidden lg:flex items-center gap-3 mb-6">
-                <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
-                  {post.category.title}
-                </Link>
-                <span className="text-ink/20">·</span>
-                <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
-              </div>
-            )}
 
             <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">
               {post.title}

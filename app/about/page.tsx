@@ -26,13 +26,10 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
           <div className="lg:col-span-2 space-y-6 text-ink/70 leading-relaxed text-[1.05rem]">
             <p>
-              <span className="font-serif text-ink text-xl">The Meridian Folder</span> exists because remarkable lives are not the exclusive domain of the famous or the well-funded. Every corner of the world has people building something, making something, enduring something. We go looking for those stories.
+              <span className="font-serif text-ink text-xl">The Meridian Folder</span> was built on a simple belief — that the most compelling lives are rarely the most visible ones. Across every city, every industry, every corner of the world, there are people quietly building, creating, and persisting. We find them and tell their stories.
             </p>
             <p>
-              Each piece we publish is long-form, reported, and carefully edited. We ask hard questions. We sit with complexity. We don't reduce a person's life to a listicle or a brand pitch.
-            </p>
-            <p>
-              Fame is not a prerequisite. A story worth telling is.
+              A story worth telling needs no famous name behind it.
             </p>
           </div>
 
