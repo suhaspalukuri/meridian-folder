@@ -52,7 +52,7 @@ export default function Nav() {
         {/* Wordmark */}
         <Link
           href="/"
-          className="font-serif text-[13px] text-cream/80 hover:text-cream transition-colors px-4 py-2 mr-0.5 border-r border-white/10 whitespace-nowrap"
+          className="font-serif text-[13px] text-cream/80 hover:text-cream transition-colors px-4 py-2.5 mr-0.5 border-r border-white/10 whitespace-nowrap"
         >
           TMF
         </Link>
@@ -63,7 +63,7 @@ export default function Nav() {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-full text-[11px] font-medium transition-all duration-200 whitespace-nowrap ${
+              className={`flex items-center gap-2 px-4 md:px-4 py-2.5 rounded-full text-[11px] font-medium transition-all duration-200 whitespace-nowrap ${
                 isActive
                   ? 'bg-cream text-ink shadow-sm'
                   : 'text-cream/50 hover:text-cream hover:bg-white/8'
