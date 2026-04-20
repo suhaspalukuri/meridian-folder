@@ -67,39 +67,30 @@ export default async function PostPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, datePublished: post.publishedAt, url: `${siteUrl}/blog/${params.category}/${params.slug}`, ...(post.coverImage && { image: urlFor(post.coverImage).width(1200).height(630).url() }) }) }} />
 
-      {/* ── TWO-COLUMN LAYOUT (desktop) ── */}
-
-      {/* Fixed image panel — desktop only */}
-      {post.coverImage && (
-        <div className="hidden lg:block fixed top-16 left-12 w-[38%] max-w-lg" style={{ zIndex: 10 }}>
-          <div className="relative w-full aspect-[4/3] overflow-hidden bg-ink/5">
-            <Image
-              src={urlFor(post.coverImage).width(900).height(675).url()}
-              alt={post.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </div>
-      )}
+      {/* ── LAYOUT ── */}
 
       {/* Mobile banner */}
       {post.coverImage && (
         <div className="block lg:hidden w-full h-56 relative bg-ink overflow-hidden">
-          <Image
-            src={urlFor(post.coverImage).width(800).height(450).url()}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-          />
+          <Image src={urlFor(post.coverImage).width(800).height(450).url()} alt={post.title} fill className="object-cover" priority />
         </div>
       )}
 
-      {/* Content — offset right on desktop to clear the fixed image */}
-      <div className={post.coverImage ? 'lg:ml-[calc(38%+5rem)]' : ''}>
-        <article className="max-w-2xl px-6 md:px-10 pt-10 pb-24">
+      {/* Desktop: fixed image left, scrolling content right — both with equal outer margin */}
+      <div className="hidden lg:block">
+        {/* Fixed image — pinned inside the left half, with outer margin matching content */}
+        {post.coverImage && (
+          <div className="fixed top-12 left-0 w-[50vw] px-12" style={{ zIndex: 10 }}>
+            <div className="relative w-full aspect-[4/3] overflow-hidden">
+              <Image src={urlFor(post.coverImage).width(900).height(675).url()} alt={post.title} fill className="object-cover" priority />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Content column — right half on desktop, full width on mobile */}
+      <div className={post.coverImage ? 'lg:ml-[50vw]' : ''}>
+        <article className="px-6 lg:px-12 pt-10 pb-24 max-w-2xl">
 
           <div className="flex items-center gap-3 mb-6">
             <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
