@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 
 interface Props {
@@ -16,7 +17,7 @@ export default function PostCard({ post, variant = 'default' }: Props) {
       <article className="group flex gap-5 py-5 border-b border-ink/10 last:border-0">
         <Link href={href} className="flex-shrink-0 w-24 h-16 overflow-hidden bg-ink/5">
           {post.coverImage
-            ? <Image src={post.coverImage} alt={post.title} width={240} height={160} className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500" />
+            ? <Image src={urlFor(post.coverImage).width(240).height(160).url()} alt={post.title} width={240} height={160} className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500" />
             : <div className="w-full h-full bg-ink/10" />}
         </Link>
         <div className="min-w-0">
@@ -42,7 +43,7 @@ export default function PostCard({ post, variant = 'default' }: Props) {
     <article className="group">
       <Link href={href} className="block overflow-hidden aspect-[3/2] bg-ink/5 mb-4">
         {post.coverImage
-          ? <Image src={post.coverImage} alt={post.title} width={720} height={480} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
+          ? <Image src={urlFor(post.coverImage).width(720).height(480).url()} alt={post.title} width={720} height={480} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
           : <div className="w-full h-full bg-ink/10" />}
       </Link>
       <Link href={`/blog/${post.category.slug.current}`} className="text-2xs uppercase tracking-widest text-accent hover:underline">

@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import { Post } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 
 export default function AuthorBlock({ post }: { post: Post }) {
   return (
     <div className="flex items-center gap-4 py-5 border-y border-ink/10 my-8">
       {post.authorPhoto ? (
         <Image
-          src={post.authorPhoto}
+          src={urlFor(post.authorPhoto).width(80).height(80).url()}
           alt={post.author}
           width={80} height={80}
           className="w-12 h-12 rounded-full object-cover grayscale"

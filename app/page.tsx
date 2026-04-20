@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getFeaturedPost, getLatestPosts, getAllCategories } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import type { Metadata } from 'next'
@@ -57,7 +58,7 @@ export default async function HomePage() {
               >
                 {featured.coverImage ? (
                   <Image
-                    src={featured.coverImage}
+                    src={urlFor(featured.coverImage).width(1100).height(800).url()}
                     alt={featured.title}
                     fill
                     className="object-cover hover:scale-[1.02] transition-transform duration-700"
@@ -122,7 +123,7 @@ export default async function HomePage() {
                 <article className="lg:col-span-5 py-8 pr-0 lg:pr-10 group">
                   <Link href={`/blog/${lead.category.slug.current}/${lead.slug.current}`} className="block aspect-[16/10] overflow-hidden bg-ink/5 mb-6">
                     {lead.coverImage ? (
-                      <Image src={lead.coverImage} alt={lead.title} width={800} height={500} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" />
+                      <Image src={urlFor(lead.coverImage).width(800).height(500).url()} alt={lead.title} width={800} height={500} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" />
                     ) : <div className="w-full h-full bg-ink/10" />}
                   </Link>
                   <CategoryLabel category={lead.category.title} slug={lead.category.slug.current} />
@@ -140,7 +141,7 @@ export default async function HomePage() {
                     <article key={post._id} className="py-8 px-0 lg:px-8 group flex gap-5">
                       <Link href={`/blog/${post.category.slug.current}/${post.slug.current}`} className="flex-shrink-0 w-28 h-20 overflow-hidden bg-ink/5">
                         {post.coverImage ? (
-                          <Image src={post.coverImage} alt={post.title} width={280} height={200} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
+                          <Image src={urlFor(post.coverImage).width(280).height(200).url()} alt={post.title} width={280} height={200} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
                         ) : <div className="w-full h-full bg-ink/10" />}
                       </Link>
                       <div className="flex flex-col justify-between min-w-0">
@@ -186,7 +187,7 @@ export default async function HomePage() {
                 <article key={post._id} className="group px-0 sm:px-6 first:pl-0 last:pr-0 py-6 sm:py-0">
                   <Link href={`/blog/${post.category.slug.current}/${post.slug.current}`} className="block aspect-[4/3] overflow-hidden bg-ink/5 mb-4">
                     {post.coverImage ? (
-                      <Image src={post.coverImage} alt={post.title} width={500} height={375} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+                      <Image src={urlFor(post.coverImage).width(500).height(375).url()} alt={post.title} width={500} height={375} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                     ) : <div className="w-full h-full bg-ink/10" />}
                   </Link>
                   <CategoryLabel category={post.category.title} slug={post.category.slug.current} />

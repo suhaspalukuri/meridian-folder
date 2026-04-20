@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 
 interface Props {
@@ -15,7 +16,7 @@ export default function FeaturedPost({ post }: Props) {
       <Link href={href} className="block overflow-hidden aspect-[4/3] lg:aspect-auto bg-stone-100">
         {post.coverImage ? (
           <Image
-            src={post.coverImage}
+            src={urlFor(post.coverImage).width(900).height(700).url()}
             alt={post.title}
             width={900}
             height={700}
@@ -32,10 +33,7 @@ export default function FeaturedPost({ post }: Props) {
           <span className="text-xs font-semibold uppercase tracking-widest text-amber-700 border border-amber-300 px-2 py-0.5">
             Featured
           </span>
-          <Link
-            href={`/blog/${post.category.slug.current}`}
-            className="text-xs font-semibold uppercase tracking-widest text-stone-500 hover:text-stone-700"
-          >
+          <Link href={`/blog/${post.category.slug.current}`} className="text-xs font-semibold uppercase tracking-widest text-stone-500 hover:text-stone-700">
             {post.category.title}
           </Link>
         </div>
@@ -53,10 +51,7 @@ export default function FeaturedPost({ post }: Props) {
             <p className="text-sm font-semibold text-stone-800">{post.author}</p>
             <p className="text-xs text-stone-400">{post.authorDesignation} · {formatDate(post.publishedAt)}</p>
           </div>
-          <Link
-            href={href}
-            className="text-sm font-semibold text-amber-700 hover:text-amber-900 transition-colors"
-          >
+          <Link href={href} className="text-sm font-semibold text-amber-700 hover:text-amber-900 transition-colors">
             Read Story →
           </Link>
         </div>

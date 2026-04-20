@@ -30,9 +30,9 @@ export interface Post {
   slug: { current: string }
   author: string
   authorDesignation: string
-  authorPhoto?: string
+  authorPhoto?: { asset: { _ref: string } }
   category: Category
-  coverImage?: string
+  coverImage?: { asset: { _ref: string } }
   excerpt: string
   body?: unknown[]
   publishedAt: string
