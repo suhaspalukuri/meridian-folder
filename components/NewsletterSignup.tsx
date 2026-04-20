@@ -36,7 +36,7 @@ export default function NewsletterSignup({ dark = false }: { dark?: boolean }) {
         required
         className={`flex-1 bg-transparent pb-2 text-sm outline-none transition-colors ${inputCls}`}
       />
-      <button type="submit" className={`text-2xs uppercase tracking-widest px-4 py-2 transition-colors flex-shrink-0 ${btnCls}`}>
+      <button type="submit" className={`text-2xs uppercase tracking-normal px-4 py-2 transition-colors flex-shrink-0 ${btnCls}`}>
         Subscribe
       </button>
     </form>

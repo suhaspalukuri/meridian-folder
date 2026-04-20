@@ -27,7 +27,7 @@ export default function SearchPage() {
       {/* Header */}
       <div className="border-b-2 border-ink px-6 md:px-12 pt-10 pb-8">
         <div className="max-w-screen-xl mx-auto">
-          <p className="text-2xs uppercase tracking-widest text-accent mb-4">Search</p>
+          <p className="text-2xs uppercase tracking-normal text-accent mb-4">Search</p>
           <div className="relative max-w-2xl">
             <svg className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-ink/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -40,7 +40,7 @@ export default function SearchPage() {
             />
           </div>
           {query && !loading && (
-            <p className="text-2xs text-ink/40 mt-4 uppercase tracking-widest">
+            <p className="text-2xs text-ink/40 mt-4 uppercase tracking-normal">
               {results.length} {results.length === 1 ? 'result' : 'results'} for &ldquo;{query}&rdquo;
             </p>
           )}
@@ -49,7 +49,7 @@ export default function SearchPage() {
 
       <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-12">
         {loading ? (
-          <p className="text-2xs text-ink/30 uppercase tracking-widest">Loading…</p>
+          <p className="text-2xs text-ink/30 uppercase tracking-normal">Loading…</p>
         ) : !query.trim() ? (
           <div className="py-20 text-center">
             <p className="font-serif text-4xl text-ink/20">What are you looking for?</p>

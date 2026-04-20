@@ -27,13 +27,13 @@ export default async function CategoryPage({ params }: Props) {
     <div className="min-h-screen">
       <div className="border-b-2 border-ink px-6 md:px-12 pt-10 pb-10">
         <div className="max-w-screen-xl mx-auto">
-          <p className="text-2xs uppercase tracking-widest text-accent mb-2">
+          <p className="text-2xs uppercase tracking-normal text-accent mb-2">
             <Link href="/blog" className="text-ink/30 hover:text-ink/60 transition-colors">Stories</Link>
             {' '}›{' '}{category.title}
           </p>
           <h1 className="font-serif text-5xl md:text-6xl text-ink leading-none mb-4">{category.title}</h1>
           {category.description && <p className="text-ink/50 text-lg max-w-2xl leading-relaxed">{category.description}</p>}
-          <p className="text-2xs text-ink/30 uppercase tracking-widest mt-4">{posts.length} stories</p>
+          <p className="text-2xs text-ink/30 uppercase tracking-normal mt-4">{posts.length} stories</p>
         </div>
       </div>
 

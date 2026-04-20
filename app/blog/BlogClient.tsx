@@ -34,7 +34,7 @@ export default function BlogClient({ posts, categories }: { posts: Post[]; categ
         <div className="max-w-screen-xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6">
             <div>
-              <p className="text-2xs uppercase tracking-widest text-accent mb-2">Archive</p>
+              <p className="text-2xs uppercase tracking-normal text-accent mb-2">Archive</p>
               <h1 className="font-serif text-5xl md:text-6xl text-ink leading-none">All Stories</h1>
             </div>
             <div className="relative w-full md:w-72">
@@ -55,7 +55,7 @@ export default function BlogClient({ posts, categories }: { posts: Post[]; categ
               <button
                 key={cat._id}
                 onClick={() => handleCat(cat.slug.current)}
-                className={`flex-shrink-0 px-5 py-3 text-2xs uppercase tracking-widest transition-all border-b-2 -mb-px ${
+                className={`flex-shrink-0 px-5 py-3 text-2xs uppercase tracking-normal transition-all border-b-2 -mb-px ${
                   active === cat.slug.current
                     ? 'border-ink text-ink font-medium'
                     : 'border-transparent text-ink/40 hover:text-ink'

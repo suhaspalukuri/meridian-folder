@@ -78,7 +78,7 @@ export default async function PostPage({ params }: Props) {
       <article className="max-w-screen-xl mx-auto px-6 md:px-12">
         <div className={`max-w-3xl mx-auto ${post.coverImage ? '-mt-32 relative z-10' : 'pt-14'}`}>
           <div className="flex items-center gap-3 mb-6">
-            <Link href={`/blog/${post.category.slug.current}`} className="text-2xs uppercase tracking-widest text-accent hover:underline">
+            <Link href={`/blog/${post.category.slug.current}`} className="text-2xs uppercase tracking-normal text-accent hover:underline">
               {post.category.title}
             </Link>
             <span className="text-ink/20">·</span>
@@ -107,7 +107,7 @@ export default async function PostPage({ params }: Props) {
           {post.tags && post.tags.length > 0 && (
             <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
               {post.tags.map(tag => (
-                <span key={tag} className="text-2xs border border-ink/15 px-3 py-1 text-ink/40 uppercase tracking-widest">{tag}</span>
+                <span key={tag} className="text-2xs border border-ink/15 px-3 py-1 text-ink/40 uppercase tracking-normal">{tag}</span>
               ))}
             </div>
           )}
@@ -118,7 +118,7 @@ export default async function PostPage({ params }: Props) {
         <section className="border-t-2 border-ink mt-16 bg-cream">
           <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-14">
             <div className="flex items-center gap-4 mb-10">
-              <span className="text-2xs uppercase tracking-widest text-ink">More from {post.category.title}</span>
+              <span className="text-2xs uppercase tracking-normal text-ink">More from {post.category.title}</span>
               <div className="flex-1 h-px bg-ink/10" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">

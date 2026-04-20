@@ -11,7 +11,7 @@ export default function Pagination({ page, totalPages, onPageChange }: Props) {
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="text-2xs uppercase tracking-widest text-ink/50 hover:text-ink disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+        className="text-2xs uppercase tracking-normal text-ink/50 hover:text-ink disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
       >
         ← Previous
       </button>
@@ -19,7 +19,7 @@ export default function Pagination({ page, totalPages, onPageChange }: Props) {
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="text-2xs uppercase tracking-widest text-ink/50 hover:text-ink disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+        className="text-2xs uppercase tracking-normal text-ink/50 hover:text-ink disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
       >
         Next →
       </button>

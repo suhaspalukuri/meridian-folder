@@ -30,10 +30,10 @@ export default function FeaturedPost({ post }: Props) {
 
       <div className="flex flex-col justify-center p-8 lg:p-12 bg-white">
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-700 border border-amber-300 px-2 py-0.5">
+          <span className="text-xs font-semibold uppercase tracking-normal text-amber-700 border border-amber-300 px-2 py-0.5">
             Featured
           </span>
-          <Link href={`/blog/${post.category.slug.current}`} className="text-xs font-semibold uppercase tracking-widest text-stone-500 hover:text-stone-700">
+          <Link href={`/blog/${post.category.slug.current}`} className="text-xs font-semibold uppercase tracking-normal text-stone-500 hover:text-stone-700">
             {post.category.title}
           </Link>
         </div>

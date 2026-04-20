@@ -33,7 +33,7 @@ export default async function HomePage() {
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight text-ink leading-none">
               The Meridian Folder
             </h1>
-            <p className="text-2xs uppercase text-ink/40 mt-4 tracking-[0.3em]">
+            <p className="text-2xs uppercase text-ink/40 mt-4 tracking-normal">
               Stories of founders · creators · everyday achievers
             </p>
           </div>
@@ -41,7 +41,7 @@ export default async function HomePage() {
           {/* Issue line */}
           <div className="flex items-center justify-between mt-4 pt-4 border-t border-ink/10">
             <span className="text-2xs text-ink/30">Vol. I</span>
-            <Link href="/blog" className="text-2xs uppercase text-accent hover:underline tracking-widest">
+            <Link href="/blog" className="text-2xs uppercase text-accent hover:underline tracking-normal">
               All Stories →
             </Link>
           </div>
@@ -75,11 +75,11 @@ export default async function HomePage() {
               <div className="lg:col-span-2 flex flex-col justify-between p-8 lg:p-12">
                 <div>
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="text-2xs uppercase text-accent tracking-widest">Featured</span>
+                    <span className="text-2xs uppercase text-accent tracking-normal">Featured</span>
                     <span className="text-ink/20">·</span>
                     <Link
                       href={`/blog/${featured.category.slug.current}`}
-                      className="text-2xs uppercase text-ink/40 tracking-widest hover:text-ink transition-colors"
+                      className="text-2xs uppercase text-ink/40 tracking-normal hover:text-ink transition-colors"
                     >
                       {featured.category.title}
                     </Link>
@@ -100,7 +100,7 @@ export default async function HomePage() {
                   </div>
                   <Link
                     href={`/blog/${featured.category.slug.current}/${featured.slug.current}`}
-                    className="text-2xs uppercase tracking-widest text-ink border border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors"
+                    className="text-2xs uppercase tracking-normal text-ink border border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors"
                   >
                     Read →
                   </Link>
@@ -116,7 +116,7 @@ export default async function HomePage() {
         <section className="border-b border-ink/10">
           <div className="max-w-screen-xl mx-auto px-6 md:px-12">
             <div className="flex items-center gap-4 py-4 border-b border-ink/10">
-              <span className="text-2xs uppercase tracking-widest text-ink font-medium">Latest</span>
+              <span className="text-2xs uppercase tracking-normal text-ink font-medium">Latest</span>
               <div className="flex-1 h-px bg-ink/10" />
             </div>
 
@@ -161,7 +161,7 @@ export default async function HomePage() {
               )}
 
               <aside className="lg:col-span-3 py-8 pl-0 lg:pl-8">
-                <p className="text-2xs uppercase tracking-widest text-ink/40 mb-5">Browse</p>
+                <p className="text-2xs uppercase tracking-normal text-ink/40 mb-5">Browse</p>
                 <div className="divide-y divide-ink/10">
                   {categories.map((cat, i) => (
                     <Link key={cat._id} href={`/blog/${cat.slug.current}`} className="flex items-start gap-3 py-4 group">
@@ -209,7 +209,7 @@ export default async function HomePage() {
         <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-2xs uppercase tracking-[0.25em] text-accent mb-5">Dispatch</p>
+              <p className="text-2xs uppercase tracking-normal text-accent mb-5">Dispatch</p>
               <h2 className="font-serif text-5xl md:text-6xl text-cream leading-[1.05] mb-4">
                 Stories worth<br />reading.
               </h2>
@@ -219,7 +219,7 @@ export default async function HomePage() {
             </div>
             <div className="border-l border-cream/10 pl-16">
               <NewsletterSignup dark />
-              <p className="text-2xs text-cream/20 mt-5 uppercase tracking-widest">Unsubscribe anytime.</p>
+              <p className="text-2xs text-cream/20 mt-5 uppercase tracking-normal">Unsubscribe anytime.</p>
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default async function HomePage() {
 
 function CategoryLabel({ category, slug }: { category: string; slug: string }) {
   return (
-    <Link href={`/blog/${slug}`} className="text-2xs uppercase tracking-widest text-accent hover:underline">
+    <Link href={`/blog/${slug}`} className="text-2xs uppercase tracking-normal text-accent hover:underline">
       {category}
     </Link>
   )

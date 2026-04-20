@@ -35,7 +35,7 @@ export default function Footer() {
 
           {cols.map(col => (
             <div key={col.head}>
-              <p className="text-2xs uppercase tracking-[0.2em] text-cream/25 mb-4">{col.head}</p>
+              <p className="text-2xs uppercase tracking-normal text-cream/25 mb-4">{col.head}</p>
               <ul className="space-y-2">
                 {col.links.map(l => (
                   <li key={l.href}>

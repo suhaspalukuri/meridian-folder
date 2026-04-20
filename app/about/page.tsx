@@ -11,7 +11,7 @@ export default function AboutPage() {
       <div className="border-b-2 border-ink px-6 md:px-12 pt-10 pb-12">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
           <div>
-            <p className="text-2xs uppercase tracking-widest text-accent mb-3">About</p>
+            <p className="text-2xs uppercase tracking-normal text-accent mb-3">About</p>
             <h1 className="font-serif text-5xl md:text-6xl text-ink leading-tight">
               Stories from every<br />corner of the globe.
             </h1>
@@ -37,7 +37,7 @@ export default function AboutPage() {
           </div>
 
           <aside className="space-y-0 divide-y divide-ink/10">
-            <p className="text-2xs uppercase tracking-widest text-ink/30 pb-4">Who we cover</p>
+            <p className="text-2xs uppercase tracking-normal text-ink/30 pb-4">Who we cover</p>
             {[
               { label: 'Founders', desc: 'Entrepreneurs in places the press rarely looks.' },
               { label: 'Creators', desc: 'Artists and makers who define their own path.' },
