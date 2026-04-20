@@ -19,7 +19,7 @@ const config: Config = {
         accent: '#C8441A',
       },
       fontSize: {
-        '2xs': ['0.65rem', { letterSpacing: '0.12em' }],
+        '2xs': ['0.65rem', { letterSpacing: '0em' }],
       },
     },
   },
