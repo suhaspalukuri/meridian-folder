@@ -198,7 +198,7 @@ export default async function HomePage() {
                 One email when something worth reading is published. No noise, no schedule, no spam.
               </p>
             </div>
-            <div className="border-l border-cream/10 pl-16">
+            <div className="md:border-l md:border-cream/10 md:pl-16">
               <NewsletterSignup dark />
               <p className="text-2xs text-cream/20 mt-5 uppercase tracking-normal">Unsubscribe anytime.</p>
             </div>

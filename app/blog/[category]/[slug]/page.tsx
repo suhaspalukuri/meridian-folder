@@ -69,28 +69,25 @@ export default async function PostPage({ params }: Props) {
 
       {/* ── LAYOUT ── */}
 
-      {/* Mobile banner */}
+      {/* Mobile: stacked */}
       {post.coverImage && (
-        <div className="block lg:hidden w-full h-56 relative bg-ink overflow-hidden">
-          <Image src={urlFor(post.coverImage).width(800).height(450).url()} alt={post.title} fill className="object-cover" priority />
+        <div className="block lg:hidden w-full aspect-[4/3] relative bg-ink overflow-hidden">
+          <Image src={urlFor(post.coverImage).width(800).height(600).url()} alt={post.title} fill className="object-cover" priority />
         </div>
       )}
 
-      {/* Desktop: fixed image left, scrolling content right — both with equal outer margin */}
-      <div className="hidden lg:block">
-        {/* Fixed image — pinned inside the left half, with outer margin matching content */}
-        {post.coverImage && (
-          <div className="fixed top-12 left-0 w-[50vw] px-12" style={{ zIndex: 10 }}>
-            <div className="relative w-full aspect-[4/3] overflow-hidden">
-              <Image src={urlFor(post.coverImage).width(900).height(675).url()} alt={post.title} fill className="object-cover" priority />
-            </div>
+      {/* Desktop: fixed image left, content scrolls right */}
+      {post.coverImage && (
+        <div className="hidden lg:block fixed left-0 top-0 w-[48%] h-screen" style={{ zIndex: 10 }}>
+          <div className="w-full h-full relative">
+            <Image src={urlFor(post.coverImage).width(1200).height(1600).url()} alt={post.title} fill className="object-cover" priority />
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Content column — right half on desktop, full width on mobile */}
-      <div className={post.coverImage ? 'lg:ml-[50vw]' : ''}>
-        <article className="px-6 lg:px-12 pt-10 pb-24 max-w-2xl">
+      {/* Content — pushed right on desktop */}
+      <div className={post.coverImage ? 'lg:ml-[48%]' : ''}>
+        <article className="px-6 lg:px-14 pt-10 pb-24 max-w-2xl">
 
           <div className="flex items-center gap-3 mb-6">
             <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">

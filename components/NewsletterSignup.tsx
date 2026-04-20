@@ -29,7 +29,7 @@ export default function NewsletterSignup({ dark = false }: { dark?: boolean }) {
     : 'border border-ink text-ink hover:bg-ink hover:text-cream'
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3 items-end">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 sm:items-end">
       <input
         type="email" value={email} onChange={e => setEmail(e.target.value)}
         placeholder="Your email address"

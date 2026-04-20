@@ -38,9 +38,9 @@ export default function NewsletterPopup() {
   if (!visible) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
       <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" onClick={dismiss} />
-      <div className="relative bg-paper max-w-md w-full p-10 shadow-2xl">
+      <div className="relative bg-paper w-full sm:max-w-md p-8 sm:p-10 shadow-2xl rounded-t-2xl sm:rounded-none">
         <button onClick={dismiss} className="absolute top-4 right-5 text-ink/30 hover:text-ink transition-colors text-xl leading-none">×</button>
 
         <p className="text-2xs uppercase tracking-normal text-accent mb-4">Dispatch</p>
@@ -52,7 +52,7 @@ export default function NewsletterPopup() {
         {status === 'success' ? (
           <p className="text-sm text-ink/50">You're in. We'll be in touch.</p>
         ) : (
-          <form onSubmit={handleSubmit} className="flex gap-3 items-end">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 sm:items-end">
             <input
               type="email"
               value={email}
