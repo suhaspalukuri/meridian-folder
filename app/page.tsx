@@ -96,7 +96,7 @@ export default async function HomePage() {
                 <div className="mt-8 pt-6 border-t border-ink/10 flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-ink">{featured.author}</p>
-                    <p className="text-2xs text-ink/40 mt-0.5">{featured.authorDesignation}</p>
+                    <p className="text-xs text-ink/40 mt-0.5">{featured.authorDesignation}</p>
                   </div>
                   <Link
                     href={`/blog/${featured.category.slug.current}/${featured.slug.current}`}

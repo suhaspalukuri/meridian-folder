@@ -23,7 +23,7 @@ export default function PostCard({ post, variant = 'default' }: Props) {
         <div className="min-w-0">
           <Link href={`/blog/${post.category.slug.current}`} className="text-2xs uppercase tracking-normal text-accent">{post.category.title}</Link>
           <Link href={href}><h3 className="font-serif text-base text-ink leading-snug mt-0.5 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3></Link>
-          <p className="text-2xs text-ink/40 mt-1">{post.author} · {formatDate(post.publishedAt)}</p>
+          <p className="text-xs text-ink/40 mt-1">{post.author} · {formatDate(post.publishedAt)}</p>
         </div>
       </article>
     )
@@ -34,7 +34,7 @@ export default function PostCard({ post, variant = 'default' }: Props) {
       <article className="group py-4 border-b border-ink/10 last:border-0">
         <Link href={`/blog/${post.category.slug.current}`} className="text-2xs uppercase tracking-normal text-accent">{post.category.title}</Link>
         <Link href={href}><h3 className="font-serif text-lg text-ink leading-snug mt-1 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3></Link>
-        <p className="text-2xs text-ink/40 mt-1">{post.author} · {formatDate(post.publishedAt)}</p>
+        <p className="text-xs text-ink/40 mt-1">{post.author} · {formatDate(post.publishedAt)}</p>
       </article>
     )
   }
@@ -53,7 +53,7 @@ export default function PostCard({ post, variant = 'default' }: Props) {
         <h3 className="font-serif text-xl text-ink leading-snug mt-1.5 mb-2 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
       </Link>
       <p className="text-sm text-ink/55 leading-relaxed mb-3 line-clamp-2">{post.excerpt}</p>
-      <p className="text-2xs text-ink/40">{post.author} · {post.authorDesignation} · {formatDate(post.publishedAt)}</p>
+      <p className="text-xs text-ink/40">{post.author} · {post.authorDesignation} · {formatDate(post.publishedAt)}</p>
     </article>
   )
 }

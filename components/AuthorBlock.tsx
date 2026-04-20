@@ -19,7 +19,7 @@ export default function AuthorBlock({ post }: { post: Post }) {
       )}
       <div>
         <p className="text-sm font-medium text-ink">{post.author}</p>
-        <p className="text-2xs text-ink/40 mt-0.5">{post.authorDesignation}</p>
+        <p className="text-xs text-ink/40 mt-0.5">{post.authorDesignation}</p>
       </div>
     </div>
   )
