@@ -7,6 +7,7 @@ import { getPostBySlug, getRelatedPosts, getAllPostSlugs } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 import PostCard from '@/components/PostCard'
+import StickyImageLayout from '@/components/StickyImageLayout'
 
 export const revalidate = 60
 
@@ -76,19 +77,39 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
-      {/* Desktop: fixed image left, content scrolls right — equal outer margins */}
-      {post.coverImage && (
-        <div className="hidden lg:block fixed left-0 top-0 pl-14 pt-10" style={{ zIndex: 10, width: '50%' }}>
-          <div className="relative w-full aspect-[4/3] overflow-hidden">
-            <Image src={urlFor(post.coverImage).width(900).height(675).url()} alt={post.title} fill className="object-cover" priority />
-          </div>
-        </div>
-      )}
-
-      {/* Content — right half, matching right margin = image's left margin (pl-14) */}
-      <div className={post.coverImage ? 'lg:ml-[50%]' : ''}>
-        <article className="px-6 lg:pl-14 lg:pr-14 pt-10 pb-24 max-w-2xl">
-
+      {/* Desktop: sticky image + scrolling content */}
+      {post.coverImage ? (
+        <StickyImageLayout
+          imageSrc={urlFor(post.coverImage).width(900).height(675).url()}
+          imageAlt={post.title}
+        >
+          <article className="px-6 lg:pl-14 lg:pr-14 pt-10 pb-24 max-w-2xl">
+            <div className="flex items-center gap-3 mb-6">
+              <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
+                {post.category.title}
+              </Link>
+              <span className="text-ink/20">·</span>
+              <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
+            </div>
+            <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">{post.title}</h1>
+            <p className="font-serif text-xl italic text-ink/50 leading-relaxed mb-10 pb-10 border-b border-ink/10">{post.excerpt}</p>
+            <div>
+              {post.body
+                ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />
+                : <p className="text-ink/30 italic">Story content coming soon.</p>
+              }
+            </div>
+            {post.tags && post.tags.length > 0 && (
+              <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
+                {post.tags.map(tag => (
+                  <span key={tag} className="text-xs border border-ink/15 px-3 py-1 text-ink/40 uppercase">{tag}</span>
+                ))}
+              </div>
+            )}
+          </article>
+        </StickyImageLayout>
+      ) : (
+        <article className="px-6 md:px-14 pt-10 pb-24 max-w-2xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
               {post.category.title}
@@ -96,22 +117,14 @@ export default async function PostPage({ params }: Props) {
             <span className="text-ink/20">·</span>
             <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
           </div>
-
-          <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">
-            {post.title}
-          </h1>
-
-          <p className="font-serif text-xl italic text-ink/50 leading-relaxed mb-10 pb-10 border-b border-ink/10">
-            {post.excerpt}
-          </p>
-
+          <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">{post.title}</h1>
+          <p className="font-serif text-xl italic text-ink/50 leading-relaxed mb-10 pb-10 border-b border-ink/10">{post.excerpt}</p>
           <div>
             {post.body
               ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />
               : <p className="text-ink/30 italic">Story content coming soon.</p>
             }
           </div>
-
           {post.tags && post.tags.length > 0 && (
             <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
               {post.tags.map(tag => (
@@ -120,7 +133,7 @@ export default async function PostPage({ params }: Props) {
             </div>
           )}
         </article>
-      </div>
+      )}
 
       {/* Related posts */}
       {related.length > 0 && (
