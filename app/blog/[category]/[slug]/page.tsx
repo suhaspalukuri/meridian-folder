@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { getPostBySlug, getRelatedPosts, getAllPostSlugs } from '@/lib/queries'
@@ -48,9 +48,9 @@ const ptComponents: PortableTextComponents = {
   },
   types: {
     image: ({ value }) => (
-      <figure className="my-12 -mx-6 md:-mx-16">
-        <Image src={urlFor(value).width(1100).url()} alt={value.alt || ''} width={1100} height={733} className="w-full object-cover" />
-        {value.caption && <figcaption className="text-2xs text-ink/35 mt-3 text-center px-6">{value.caption}</figcaption>}
+      <figure className="my-12">
+        <Image src={urlFor(value).width(900).url()} alt={value.alt || ''} width={900} height={600} className="w-full object-cover" />
+        {value.caption && <figcaption className="text-xs text-ink/35 mt-3 text-center">{value.caption}</figcaption>}
       </figure>
     ),
   },
@@ -67,55 +67,102 @@ export default async function PostPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, datePublished: post.publishedAt, url: `${siteUrl}/blog/${params.category}/${params.slug}`, ...(post.coverImage && { image: urlFor(post.coverImage).width(1200).height(630).url() }) }) }} />
 
-      {post.coverImage && (
-        <div className="w-full h-[55vh] md:h-[70vh] overflow-hidden relative bg-ink">
-          <Image src={urlFor(post.coverImage).width(1600).height(900).url()} alt={post.title} fill className="object-cover opacity-75" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent" />
-        </div>
-      )}
+      {/* ── TWO-COLUMN LAYOUT ── */}
+      <div className={post.coverImage ? 'lg:flex lg:min-h-screen' : ''}>
 
-      <article className="max-w-screen-xl mx-auto px-6 md:px-12">
-        <div className={`max-w-3xl mx-auto ${post.coverImage ? '-mt-32 relative z-10' : 'pt-14'}`}>
-          <div className="flex items-center gap-3 mb-6">
-            <Link href={`/blog/${post.category.slug.current}`} className="text-2xs uppercase tracking-normal text-accent hover:underline">
-              {post.category.title}
-            </Link>
-            <span className="text-ink/20">·</span>
-            <span className="text-2xs text-ink/40">{formatDate(post.publishedAt)}</span>
-          </div>
-
-          <h1 className={`font-serif text-4xl md:text-5xl leading-tight mb-6 ${post.coverImage ? 'text-cream' : 'text-ink'}`}>
-            {post.title}
-          </h1>
-
-          <p className={`font-serif text-xl italic leading-relaxed mb-0 ${post.coverImage ? 'text-cream/60' : 'text-ink/50'}`}>
-            {post.excerpt}
-          </p>
-        </div>
-
-        <div className="max-w-3xl mx-auto">
-          <div className="mt-4">
-            {post.body
-              ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />
-              : <p className="text-ink/30 italic">Story content coming soon.</p>
-            }
-          </div>
-
-          {post.tags && post.tags.length > 0 && (
-            <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
-              {post.tags.map(tag => (
-                <span key={tag} className="text-2xs border border-ink/15 px-3 py-1 text-ink/40 uppercase tracking-normal">{tag}</span>
-              ))}
+        {/* LEFT — sticky cover image (desktop only) */}
+        {post.coverImage && (
+          <div className="lg:w-[45%] lg:flex-shrink-0 lg:sticky lg:top-0 lg:h-screen relative">
+            {/* Mobile: full-width banner */}
+            <div className="block lg:hidden w-full h-[50vw] min-h-[240px] relative bg-ink overflow-hidden">
+              <Image
+                src={urlFor(post.coverImage).width(900).height(600).url()}
+                alt={post.title}
+                fill
+                className="object-cover opacity-80"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
             </div>
-          )}
-        </div>
-      </article>
+            {/* Desktop: full-height sticky */}
+            <div className="hidden lg:block w-full h-full relative bg-ink overflow-hidden">
+              <Image
+                src={urlFor(post.coverImage).width(1200).height(1600).url()}
+                alt={post.title}
+                fill
+                className="object-cover opacity-85"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink/20" />
+              {/* Category + date overlay */}
+              <div className="absolute bottom-8 left-8 right-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase text-cream/70 hover:text-cream transition-colors">
+                    {post.category.title}
+                  </Link>
+                  <span className="text-cream/30">·</span>
+                  <span className="text-xs text-cream/50">{formatDate(post.publishedAt)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
+        {/* RIGHT — scrollable content */}
+        <div className={post.coverImage ? 'lg:flex-1 lg:overflow-y-auto' : 'w-full'}>
+          <article className="max-w-2xl mx-auto px-6 md:px-10 pt-10 pb-20">
+
+            {/* Category + date (mobile shows below image, desktop shows in overlay) */}
+            <div className={`flex items-center gap-3 mb-6 ${post.coverImage ? 'lg:hidden' : ''}`}>
+              <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
+                {post.category.title}
+              </Link>
+              <span className="text-ink/20">·</span>
+              <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
+            </div>
+            {/* Desktop category row (since overlay is on image) */}
+            {post.coverImage && (
+              <div className="hidden lg:flex items-center gap-3 mb-6">
+                <Link href={`/blog/${post.category.slug.current}`} className="text-xs uppercase tracking-normal text-accent hover:underline">
+                  {post.category.title}
+                </Link>
+                <span className="text-ink/20">·</span>
+                <span className="text-xs text-ink/40">{formatDate(post.publishedAt)}</span>
+              </div>
+            )}
+
+            <h1 className="font-serif text-4xl md:text-5xl text-ink leading-tight mb-5">
+              {post.title}
+            </h1>
+
+            <p className="font-serif text-xl italic text-ink/50 leading-relaxed mb-10 pb-10 border-b border-ink/10">
+              {post.excerpt}
+            </p>
+
+            <div>
+              {post.body
+                ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />
+                : <p className="text-ink/30 italic">Story content coming soon.</p>
+              }
+            </div>
+
+            {post.tags && post.tags.length > 0 && (
+              <div className="mt-14 pt-6 border-t border-ink/10 flex flex-wrap gap-2">
+                {post.tags.map(tag => (
+                  <span key={tag} className="text-xs border border-ink/15 px-3 py-1 text-ink/40 uppercase">{tag}</span>
+                ))}
+              </div>
+            )}
+          </article>
+        </div>
+      </div>
+
+      {/* Related posts */}
       {related.length > 0 && (
-        <section className="border-t-2 border-ink mt-16 bg-cream">
+        <section className="border-t-2 border-ink bg-cream">
           <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-14">
             <div className="flex items-center gap-4 mb-10">
-              <span className="text-2xs uppercase tracking-normal text-ink">More from {post.category.title}</span>
+              <span className="text-xs uppercase tracking-normal text-ink">More from {post.category.title}</span>
               <div className="flex-1 h-px bg-ink/10" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
