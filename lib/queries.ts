@@ -28,7 +28,6 @@ export interface Post {
   _id: string
   title: string
   slug: { current: string }
-  author: string
   authorDesignation: string
   authorPhoto?: { asset: { _ref: string } }
   category: Category
@@ -44,7 +43,6 @@ const postFields = `
   _id,
   title,
   slug,
-  author,
   authorDesignation,
   authorPhoto,
   category->{_id, title, slug, description},

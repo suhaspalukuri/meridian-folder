@@ -18,7 +18,7 @@ export default function SearchPage() {
   const results = query.trim()
     ? posts.filter(p => {
         const q = query.toLowerCase()
-        return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.author.toLowerCase().includes(q) || p.authorDesignation.toLowerCase().includes(q) || p.category.title.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
+        return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.authorDesignation.toLowerCase().includes(q) || p.category.title.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
       })
     : []
 

@@ -95,8 +95,7 @@ export default async function HomePage() {
                 </div>
                 <div className="mt-8 pt-6 border-t border-ink/10 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-ink">{featured.author}</p>
-                    <p className="text-xs text-ink/40 mt-0.5">{featured.authorDesignation}</p>
+                    <p className="text-xs text-ink/40">{featured.authorDesignation}</p>
                   </div>
                   <Link
                     href={`/blog/${featured.category.slug.current}/${featured.slug.current}`}
@@ -133,7 +132,7 @@ export default async function HomePage() {
                     <h3 className="font-serif text-2xl lg:text-3xl text-ink leading-tight mt-2 mb-3 group-hover:text-accent transition-colors">{lead.title}</h3>
                   </Link>
                   <p className="text-sm text-ink/55 leading-relaxed line-clamp-3 mb-4">{lead.excerpt}</p>
-                  <Byline author={lead.author} designation={lead.authorDesignation} date={lead.publishedAt} />
+                  <Byline designation={lead.authorDesignation} date={lead.publishedAt} />
                 </article>
               )}
 
@@ -153,7 +152,7 @@ export default async function HomePage() {
                             <h3 className="font-serif text-base text-ink leading-snug mt-1 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
                           </Link>
                         </div>
-                        <p className="text-xs text-ink/40 mt-2">{post.author} · {formatDate(post.publishedAt)}</p>
+                        <p className="text-xs text-ink/40 mt-2">{formatDate(post.publishedAt)}</p>
                       </div>
                     </article>
                   ))}
@@ -181,7 +180,7 @@ export default async function HomePage() {
                   <Link href={`/blog/${post.category.slug.current}/${post.slug.current}`}>
                     <h3 className="font-serif text-lg text-ink leading-snug mt-1.5 mb-2 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
                   </Link>
-                  <p className="text-xs text-ink/40">{post.author} · {formatDate(post.publishedAt)}</p>
+                  <p className="text-xs text-ink/40">{formatDate(post.publishedAt)}</p>
                 </article>
               ))}
             </div>
@@ -221,11 +220,9 @@ function CategoryLabel({ category, slug }: { category: string; slug: string }) {
   )
 }
 
-function Byline({ author, designation, date }: { author: string; designation: string; date: string }) {
+function Byline({ designation, date }: { designation: string; date: string }) {
   return (
     <div className="flex items-center gap-2 text-xs text-ink/40">
-      <span>{author}</span>
-      <span className="text-ink/20">·</span>
       <span>{designation}</span>
       <span className="text-ink/20">·</span>
       <span>{formatDate(date)}</span>

@@ -8,18 +8,17 @@ export default function AuthorBlock({ post }: { post: Post }) {
       {post.authorPhoto ? (
         <Image
           src={urlFor(post.authorPhoto).width(80).height(80).url()}
-          alt={post.author}
+          alt={post.authorDesignation}
           width={80} height={80}
           className="w-12 h-12 rounded-full object-cover grayscale"
         />
       ) : (
         <div className="w-12 h-12 rounded-full bg-ink/10 flex items-center justify-center font-serif text-xl text-ink/40 flex-shrink-0">
-          {post.author[0]}
+          ✦
         </div>
       )}
       <div>
-        <p className="text-sm font-medium text-ink">{post.author}</p>
-        <p className="text-xs text-ink/40 mt-0.5">{post.authorDesignation}</p>
+        <p className="text-xs text-ink/40">{post.authorDesignation}</p>
       </div>
     </div>
   )

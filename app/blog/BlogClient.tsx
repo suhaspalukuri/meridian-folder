@@ -17,7 +17,7 @@ export default function BlogClient({ posts, categories }: { posts: Post[]; categ
     .filter(p => {
       if (!query.trim()) return true
       const q = query.toLowerCase()
-      return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.author.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
+      return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
     })
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE)
