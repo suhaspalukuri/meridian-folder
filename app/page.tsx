@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getFeaturedPost, getLatestPosts, getAllCategories } from '@/lib/queries'
+import { getFeaturedPost, getLatestPosts } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
 import NewsletterSignup from '@/components/NewsletterSignup'
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [featured, categories] = await Promise.all([getFeaturedPost(), getAllCategories()])
+  const featured = await getFeaturedPost()
   const latest = await getLatestPosts(7, featured?._id)
 
   const lead = latest[0] ?? null
@@ -120,7 +120,7 @@ export default async function HomePage() {
               <div className="flex-1 h-px bg-ink/10" />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-ink/10">
+            <div className="grid grid-cols-1 lg:grid-cols-9 divide-y lg:divide-y-0 lg:divide-x divide-ink/10">
               {lead && (
                 <article className="lg:col-span-5 py-8 pr-0 lg:pr-10 group">
                   <Link href={`/blog/${lead.category.slug.current}/${lead.slug.current}`} className="block aspect-[16/10] overflow-hidden bg-ink/5 mb-6">
@@ -153,28 +153,13 @@ export default async function HomePage() {
                             <h3 className="font-serif text-base text-ink leading-snug mt-1 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
                           </Link>
                         </div>
-                        <p className="text-2xs text-ink/40 mt-2">{post.author} · {formatDate(post.publishedAt)}</p>
+                        <p className="text-xs text-ink/40 mt-2">{post.author} · {formatDate(post.publishedAt)}</p>
                       </div>
                     </article>
                   ))}
                 </div>
               )}
 
-              <aside className="lg:col-span-3 py-8 pl-0 lg:pl-8">
-                <p className="text-2xs uppercase tracking-normal text-ink/40 mb-5">Browse</p>
-                <div className="divide-y divide-ink/10">
-                  {categories.map((cat, i) => (
-                    <Link key={cat._id} href={`/blog/${cat.slug.current}`} className="flex items-start gap-3 py-4 group">
-                      <span className="text-2xs text-ink/25 mt-0.5 w-4 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
-                      <div>
-                        <p className="text-sm text-ink font-medium group-hover:text-accent transition-colors">{cat.title}</p>
-                        {cat.description && <p className="text-2xs text-ink/40 mt-0.5 leading-relaxed line-clamp-2">{cat.description}</p>}
-                        <p className="text-2xs text-ink/25 mt-1">{cat.postCount ?? 0} stories</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </aside>
             </div>
           </div>
         </section>
@@ -196,7 +181,7 @@ export default async function HomePage() {
                   <Link href={`/blog/${post.category.slug.current}/${post.slug.current}`}>
                     <h3 className="font-serif text-lg text-ink leading-snug mt-1.5 mb-2 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
                   </Link>
-                  <p className="text-2xs text-ink/40">{post.author} · {formatDate(post.publishedAt)}</p>
+                  <p className="text-xs text-ink/40">{post.author} · {formatDate(post.publishedAt)}</p>
                 </article>
               ))}
             </div>
@@ -238,7 +223,7 @@ function CategoryLabel({ category, slug }: { category: string; slug: string }) {
 
 function Byline({ author, designation, date }: { author: string; designation: string; date: string }) {
   return (
-    <div className="flex items-center gap-2 text-2xs text-ink/40">
+    <div className="flex items-center gap-2 text-xs text-ink/40">
       <span>{author}</span>
       <span className="text-ink/20">·</span>
       <span>{designation}</span>
