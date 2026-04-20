@@ -6,23 +6,20 @@ interface Props {
 
 export default function Pagination({ page, totalPages, onPageChange }: Props) {
   if (totalPages <= 1) return null
-
   return (
-    <div className="flex items-center justify-center gap-2 mt-12">
+    <div className="flex items-center justify-center gap-4 mt-16 pt-8 border-t border-ink/10">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="text-sm px-4 py-2 border border-stone-300 text-stone-600 hover:border-stone-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        className="text-2xs uppercase tracking-widest text-ink/50 hover:text-ink disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
       >
         ← Previous
       </button>
-      <span className="text-sm text-stone-400 px-4">
-        {page} / {totalPages}
-      </span>
+      <span className="text-2xs text-ink/30">{page} / {totalPages}</span>
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="text-sm px-4 py-2 border border-stone-300 text-stone-600 hover:border-stone-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        className="text-2xs uppercase tracking-widest text-ink/50 hover:text-ink disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
       >
         Next →
       </button>

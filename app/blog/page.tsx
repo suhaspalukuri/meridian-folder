@@ -5,85 +5,110 @@ import { getAllPosts, getAllCategories, Post, Category } from '@/lib/queries'
 import PostCard from '@/components/PostCard'
 import Pagination from '@/components/Pagination'
 
-const POSTS_PER_PAGE = 9
+const PER_PAGE = 9
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([])
   const [categories, setCategories] = useState<Category[]>([])
-  const [activeCategory, setActiveCategory] = useState('all')
+  const [active, setActive] = useState('all')
+  const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Promise.all([getAllPosts(), getAllCategories()]).then(([p, c]) => {
-      setPosts(p)
-      setCategories(c)
-      setLoading(false)
+      setPosts(p); setCategories(c); setLoading(false)
     })
   }, [])
 
-  const filtered = activeCategory === 'all'
-    ? posts
-    : posts.filter(p => p.category.slug.current === activeCategory)
+  const filtered = posts
+    .filter(p => active === 'all' || p.category.slug.current === active)
+    .filter(p => {
+      if (!query.trim()) return true
+      const q = query.toLowerCase()
+      return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.author.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
+    })
 
-  const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE)
-  const paginated = filtered.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE)
+  const totalPages = Math.ceil(filtered.length / PER_PAGE)
+  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE)
 
-  function handleCategoryChange(slug: string) {
-    setActiveCategory(slug)
-    setPage(1)
-  }
+  function handleCat(slug: string) { setActive(slug); setPage(1) }
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) { setQuery(e.target.value); setPage(1) }
+
+  const allCats = [{ _id: 'all', title: 'All', slug: { current: 'all' }, description: '' }, ...categories]
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
-      <div className="mb-12">
-        <h1 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 mb-2">All Stories</h1>
-        <p className="text-stone-400">{filtered.length} {filtered.length === 1 ? 'story' : 'stories'}</p>
-      </div>
-
-      {/* Category tabs */}
-      <div className="flex flex-wrap gap-2 mb-12 border-b border-stone-200 pb-4">
-        {[{ title: 'All', slug: { current: 'all' } }, ...categories].map(cat => {
-          const slug = cat.slug.current
-          return (
-            <button
-              key={slug}
-              onClick={() => handleCategoryChange(slug)}
-              className={`text-sm px-4 py-1.5 font-medium transition-colors ${
-                activeCategory === slug
-                  ? 'bg-stone-900 text-white'
-                  : 'text-stone-500 hover:text-stone-900'
-              }`}
-            >
-              {cat.title}
-            </button>
-          )
-        })}
-      </div>
-
-      {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="animate-pulse">
-              <div className="aspect-[16/9] bg-stone-200 mb-4" />
-              <div className="h-4 bg-stone-200 mb-2 w-1/3" />
-              <div className="h-6 bg-stone-200 mb-2" />
-              <div className="h-4 bg-stone-200 w-3/4" />
+    <div className="min-h-screen">
+      {/* Page header */}
+      <div className="border-b-2 border-ink px-6 md:px-12 pt-10 pb-0">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6">
+            <div>
+              <p className="text-2xs uppercase tracking-widest text-accent mb-2">Archive</p>
+              <h1 className="font-serif text-5xl md:text-6xl text-ink leading-none">All Stories</h1>
             </div>
-          ))}
+            {/* Search */}
+            <div className="relative w-full md:w-72">
+              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text" value={query} onChange={handleSearch}
+                placeholder="Search…"
+                className="w-full bg-transparent border border-ink/20 text-ink placeholder:text-ink/30 pl-10 pr-4 py-2.5 text-sm outline-none focus:border-ink transition-colors"
+              />
+              {query && <button onClick={() => setQuery('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-ink/30 hover:text-ink transition-colors text-xs">✕</button>}
+            </div>
+          </div>
+
+          {/* Category tabs */}
+          <div className="flex items-center gap-0 overflow-x-auto scrollbar-none border-t border-ink/10">
+            {allCats.map(cat => (
+              <button
+                key={cat._id}
+                onClick={() => handleCat(cat.slug.current)}
+                className={`flex-shrink-0 px-5 py-3 text-2xs uppercase tracking-widest transition-all border-b-2 -mb-px ${
+                  active === cat.slug.current
+                    ? 'border-ink text-ink font-medium'
+                    : 'border-transparent text-ink/40 hover:text-ink'
+                }`}
+              >
+                {cat.title}
+              </button>
+            ))}
+            <div className="ml-auto text-2xs text-ink/30 px-5 py-3 flex-shrink-0">
+              {loading ? '—' : `${filtered.length} ${filtered.length === 1 ? 'story' : 'stories'}`}
+            </div>
+          </div>
         </div>
-      ) : paginated.length > 0 ? (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {paginated.map(post => (
-              <PostCard key={post._id} post={post} />
+      </div>
+
+      {/* Grid */}
+      <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-12">
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-[3/2] bg-ink/5 mb-4" />
+                <div className="h-3 bg-ink/5 mb-3 w-1/4" />
+                <div className="h-5 bg-ink/5 mb-2" />
+                <div className="h-4 bg-ink/5 w-3/4" />
+              </div>
             ))}
           </div>
-          <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
-        </>
-      ) : (
-        <p className="text-stone-400 py-12 text-center">No stories in this category yet.</p>
-      )}
+        ) : paginated.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+              {paginated.map(post => <PostCard key={post._id} post={post} />)}
+            </div>
+            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+          </>
+        ) : (
+          <div className="py-24 text-center">
+            <p className="font-serif text-3xl text-ink/30">No stories found.</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

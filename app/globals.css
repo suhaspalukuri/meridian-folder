@@ -3,19 +3,32 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    @apply bg-stone-50 text-stone-900 antialiased;
+  html { scroll-behavior: smooth; }
+  body { @apply antialiased bg-paper text-ink; }
+
+  ::selection {
+    background: #0E0E0E;
+    color: #F5F0E8;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(1.75rem - 1px),
+      rgba(14,14,14,0.06) calc(1.75rem - 1px),
+      rgba(14,14,14,0.06) 1.75rem
+    );
+    background-size: 100% 1.75rem;
   }
-  .prose-editorial {
-    @apply prose prose-stone prose-lg max-w-none;
+
+  .text-2xs {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
   }
 }

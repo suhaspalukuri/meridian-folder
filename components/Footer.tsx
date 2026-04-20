@@ -1,48 +1,55 @@
 import Link from 'next/link'
 import NewsletterSignup from './NewsletterSignup'
 
+const cols = [
+  {
+    head: 'Categories',
+    links: [
+      { label: 'Founders', href: '/blog/founders' },
+      { label: 'Creators', href: '/blog/creators' },
+      { label: 'Everyday Achievers', href: '/blog/everyday-achievers' },
+    ],
+  },
+  {
+    head: 'Platform',
+    links: [
+      { label: 'All Stories', href: '/blog' },
+      { label: 'About', href: '/about' },
+    ],
+  },
+]
+
 export default function Footer() {
   return (
-    <footer className="bg-stone-900 text-stone-300 mt-24">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          <div>
-            <h3 className="font-serif text-white text-lg font-bold mb-3">The Meridian Folder</h3>
-            <p className="text-sm text-stone-400 leading-relaxed">
-              Stories of founders, creators, and everyday achievers from every corner of the globe.
+    <footer className="bg-ink text-cream/40 border-t-2 border-cream/10">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-12 py-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+
+          {/* Brand */}
+          <div className="col-span-2">
+            <p className="font-serif text-cream text-3xl mb-3">The Meridian Folder</p>
+            <p className="text-sm text-cream/40 leading-relaxed max-w-xs">
+              In-depth stories of founders, creators, and everyday achievers from every corner of the globe.
             </p>
           </div>
 
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-widest mb-4">Explore</h4>
-            <ul className="space-y-2 text-sm">
-              {[
-                { label: 'All Stories', href: '/blog' },
-                { label: 'Founders', href: '/blog/founders' },
-                { label: 'Creators', href: '/blog/creators' },
-                { label: 'Everyday Achievers', href: '/blog/everyday-achievers' },
-                { label: 'About', href: '/about' },
-              ].map(link => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-widest mb-4">Stay in the loop</h4>
-            <NewsletterSignup dark />
-          </div>
+          {cols.map(col => (
+            <div key={col.head}>
+              <p className="text-2xs uppercase tracking-[0.2em] text-cream/25 mb-4">{col.head}</p>
+              <ul className="space-y-2">
+                {col.links.map(l => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="text-sm text-cream/50 hover:text-cream transition-colors">{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="border-t border-stone-700 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} The Meridian Folder. All rights reserved.</p>
-          <Link href="/submit" className="hover:text-white transition-colors">
-            Submit Your Story →
-          </Link>
+        <div className="border-t border-cream/10 pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <p className="text-2xs text-cream/25">© {new Date().getFullYear()} The Meridian Folder. All rights reserved.</p>
+          <p className="font-serif italic text-cream/20 text-sm">Every remarkable story deserves a platform.</p>
         </div>
       </div>
     </footer>
