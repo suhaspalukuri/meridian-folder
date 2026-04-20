@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "createdAt": "2026-04-20T14:19:13.411Z",
+  "createdAt": "2026-04-20T14:31:05.946Z",
   "workspaces": [
     {
       "name": "meridian-folder",
@@ -12,7 +12,7 @@
       "mediaLibrary": {
         "enabled": false
       },
-      "schema": "5d18a651.create-schema.json",
+      "schema": "f6c9946d.create-schema.json",
       "tools": "1fa84ed8.create-tools.json"
     }
   ]

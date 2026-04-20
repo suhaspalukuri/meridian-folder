@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import NewsletterPopup from '@/components/NewsletterPopup'
 
 const caslonIonic = localFont({
   src: [
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Footer />
         <Nav />
+        <NewsletterPopup />
       </body>
     </html>
   )
