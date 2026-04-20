@@ -18,7 +18,7 @@ export default function SearchPage() {
   const results = query.trim()
     ? posts.filter(p => {
         const q = query.toLowerCase()
-        return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.authorDesignation.toLowerCase().includes(q) || p.category.title.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
+        return p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.category.title.toLowerCase().includes(q) || p.tags?.some(t => t.toLowerCase().includes(q))
       })
     : []
 
@@ -53,7 +53,7 @@ export default function SearchPage() {
         ) : !query.trim() ? (
           <div className="py-20 text-center">
             <p className="font-serif text-4xl text-ink/20">What are you looking for?</p>
-            <p className="text-sm text-ink/30 mt-3">Title, author, category, or tag.</p>
+            <p className="text-sm text-ink/30 mt-3">Title, category, or tag.</p>
           </div>
         ) : results.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">

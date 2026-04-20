@@ -6,7 +6,6 @@ import { PortableText, PortableTextComponents } from '@portabletext/react'
 import { getPostBySlug, getRelatedPosts, getAllPostSlugs } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/utils'
-import AuthorBlock from '@/components/AuthorBlock'
 import PostCard from '@/components/PostCard'
 
 export const revalidate = 60
@@ -95,8 +94,6 @@ export default async function PostPage({ params }: Props) {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <AuthorBlock post={post} />
-
           <div className="mt-4">
             {post.body
               ? <PortableText value={post.body as Parameters<typeof PortableText>[0]['value']} components={ptComponents} />

@@ -53,7 +53,7 @@ export default function PostCard({ post, variant = 'default' }: Props) {
         <h3 className="font-serif text-xl text-ink leading-snug mt-1.5 mb-2 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
       </Link>
       <p className="text-sm text-ink/55 leading-relaxed mb-3 line-clamp-2">{post.excerpt}</p>
-      <p className="text-xs text-ink/40">{post.authorDesignation} · {formatDate(post.publishedAt)}</p>
+      <p className="text-xs text-ink/40">{formatDate(post.publishedAt)}</p>
     </article>
   )
 }

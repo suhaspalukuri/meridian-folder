@@ -94,9 +94,6 @@ export default async function HomePage() {
                   </p>
                 </div>
                 <div className="mt-8 pt-6 border-t border-ink/10 flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-ink/40">{featured.authorDesignation}</p>
-                  </div>
                   <Link
                     href={`/blog/${featured.category.slug.current}/${featured.slug.current}`}
                     className="text-2xs uppercase tracking-normal text-ink border border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors"
@@ -132,7 +129,7 @@ export default async function HomePage() {
                     <h3 className="font-serif text-2xl lg:text-3xl text-ink leading-tight mt-2 mb-3 group-hover:text-accent transition-colors">{lead.title}</h3>
                   </Link>
                   <p className="text-sm text-ink/55 leading-relaxed line-clamp-3 mb-4">{lead.excerpt}</p>
-                  <Byline designation={lead.authorDesignation} date={lead.publishedAt} />
+                  <p className="text-xs text-ink/40">{formatDate(lead.publishedAt)}</p>
                 </article>
               )}
 
@@ -217,15 +214,5 @@ function CategoryLabel({ category, slug }: { category: string; slug: string }) {
     <Link href={`/blog/${slug}`} className="text-2xs uppercase tracking-normal text-accent hover:underline">
       {category}
     </Link>
-  )
-}
-
-function Byline({ designation, date }: { designation: string; date: string }) {
-  return (
-    <div className="flex items-center gap-2 text-xs text-ink/40">
-      <span>{designation}</span>
-      <span className="text-ink/20">·</span>
-      <span>{formatDate(date)}</span>
-    </div>
   )
 }

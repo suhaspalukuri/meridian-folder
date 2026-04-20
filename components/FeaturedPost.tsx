@@ -47,9 +47,7 @@ export default function FeaturedPost({ post }: Props) {
         <p className="text-stone-500 leading-relaxed mb-6">{post.excerpt}</p>
 
         <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs text-stone-400">{post.authorDesignation} · {formatDate(post.publishedAt)}</p>
-          </div>
+          <p className="text-xs text-stone-400">{formatDate(post.publishedAt)}</p>
           <Link href={href} className="text-sm font-semibold text-amber-700 hover:text-amber-900 transition-colors">
             Read Story →
           </Link>

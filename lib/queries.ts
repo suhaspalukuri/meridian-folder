@@ -28,8 +28,6 @@ export interface Post {
   _id: string
   title: string
   slug: { current: string }
-  authorDesignation: string
-  authorPhoto?: { asset: { _ref: string } }
   category: Category
   coverImage?: { asset: { _ref: string } }
   excerpt: string
@@ -43,8 +41,6 @@ const postFields = `
   _id,
   title,
   slug,
-  authorDesignation,
-  authorPhoto,
   category->{_id, title, slug, description},
   coverImage,
   excerpt,
